@@ -1,12 +1,3 @@
-<jqxGrid 
-	
-	[source]="source" 
-	[theme]="'material'" 
-	[autoheight]="true" 
-	[pageable]="true" 
-	[altrows]="true" 
-	[filterable]="true" 
-	[sortable]="true" 
-	[columns]="columns" 
-#grid>
-</jqxGrid> 
+<jqxGrid #grid [width]="850" [source]="dataAdapter" [columns]="columns"
+         [columnsresize]="true" [sortable]="true" [autoshowloadelement]="true" >
+</jqxGrid>

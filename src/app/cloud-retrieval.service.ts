@@ -18,7 +18,7 @@ export class CloudRetrievalService {
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
   getAKSCloudStatus(): Observable<CloudStatus[]> {
-    return this.http.get<CloudStatus[]>(this.testUrl)
+    return this.http.get<CloudStatus[]>(this.azureAksUrl)
       .pipe(
         tap(_ => this.log('Fetched Cloud Services Result')),
         catchError(this.handleError<CloudStatus[]>('getAKSCloudStatus', []))
@@ -31,7 +31,7 @@ export class CloudRetrievalService {
     this.messageService.add(`Cloud Service: ${message}`);
   }
   private testUrl = 'https://dummy.restapiexample.com/api/v1/employees'
-  private azureAksUrl = 'http://localhost:8080/clouddiscovery/azure-aks';  // URL to web api
+  private azureAksUrl = 'http://localhost:8080/clouddiscovery/bytype?type=azure-aks&deployed=false';  // URL to web api
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

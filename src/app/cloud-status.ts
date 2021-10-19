@@ -3,7 +3,3 @@ export interface CloudStatus{
     status:     string,
     
 }
-
-export interface TestData{
-    status:     string
-}
