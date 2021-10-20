@@ -25,6 +25,14 @@ export class CloudRetrievalService {
       );
   }
 
+  getAKSDefendedStatus(): Observable<CloudStatus[]> {
+    return this.http.get<CloudStatus[]>(this.azureAKSDefended)
+      .pipe(
+        tap(_ => this.log('Fetched Cloud Services Result')),
+        catchError(this.handleError<CloudStatus[]>('getAKSCloudStatus', []))
+      );
+  }
+
 
    /** Log a HeroService message with the MessageService */
    private log(message: string) {
@@ -32,7 +40,7 @@ export class CloudRetrievalService {
   }
   private testUrl = 'https://dummy.restapiexample.com/api/v1/employees'
   private azureAksUrl = 'http://localhost:8080/clouddiscovery/bytype?type=azure-aks&deployed=false';  // URL to web api
-
+  private azureAKSDefended = 'http://localhost:8080/clouddiscovery/bytype?type=azure-aks&deployed=true';
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
   

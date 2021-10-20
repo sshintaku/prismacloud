@@ -3,3 +3,8 @@ export interface CloudStatus{
     status:     string,
     
 }
+
+export interface SeriesDatapoints{
+    dataField:      string,
+    displayText:    string
+}
