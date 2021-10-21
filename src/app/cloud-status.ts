@@ -5,6 +5,6 @@ export interface CloudStatus{
 }
 
 export interface SeriesDatapoints{
-    dataField:      string,
-    displayText:    string
+    data:     number,
+    label:    string
 }

@@ -5,7 +5,15 @@
 <jqxGrid #grid2 [width]="1000" [enableanimations]="true" [rowsheight]= 50 [altrows]="true" [source]="dataAdapter2" [columns]="columns"
          [columnsresize]="true" [sortable]="true" [autoshowloadelement]="true" >
 </jqxGrid>
-<div class="card">
-    <h5>Vertical</h5>
-    <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
-</div>
+
+
+<div style="display: block;">
+    <canvas baseChart #barChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      [chartType]="barChartType">
+    </canvas>
+  </div>

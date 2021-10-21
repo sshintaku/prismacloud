@@ -7,19 +7,22 @@ import { GridJqComponent } from './grid-jq/grid-jq.component';
 import { jqxGridModule} from 'jqwidgets-ng/jqxgrid';
 import { HttpClientModule } from '@angular/common/http';
 import { MessagesComponent } from './messages/messages.component'
-import { jqxLayoutModule } from 'jqwidgets-ng/jqxlayout';
+import { ChartsModule } from 'ng2-charts';
+import { MyBarChartComponent } from './my-bar-chart/my-bar-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GridJqComponent,
     MessagesComponent,
+    MyBarChartComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     jqxGridModule,
     HttpClientModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
