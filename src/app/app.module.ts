@@ -8,6 +8,7 @@ import { jqxGridModule} from 'jqwidgets-ng/jqxgrid';
 import { HttpClientModule } from '@angular/common/http';
 import { MessagesComponent } from './messages/messages.component'
 import { ChartsModule } from 'ng2-charts';
+import { AngularSplitModule } from 'angular-split';
 //{ MyBarChartComponent } from './my-bar-chart/my-bar-chart.component';
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ChartsModule } from 'ng2-charts';
     AppRoutingModule,
     jqxGridModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    AngularSplitModule
   ],
   providers: [],
   bootstrap: [AppComponent],

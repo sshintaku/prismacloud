@@ -14,6 +14,10 @@ import { ChartDataSets } from "chart.js";
 import { CloudRetrievalService } from "../cloud-retrieval.service";
 import { jqxGridComponent } from "jqwidgets-ng/jqxgrid";
 
+import { SplitComponent, SplitAreaDirective } from 'angular-split'
+
+
+
 @Component({
   selector: "app-grid-jq",
   templateUrl: "./grid-jq.component.html",
@@ -26,7 +30,8 @@ export class GridJqComponent implements AfterViewInit, OnInit {
   @ViewChild("grid") myGrid!: jqxGridComponent;
   @ViewChild("grid2") myGrid2!: jqxGridComponent;
   @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
-description = "Column chart displaying undefended AKS clusters vs. defended clusters"
+  
+
 title = "Defended vs Undefended AKS Clusters"
   source = {
     localdata: null,
@@ -99,6 +104,7 @@ title = "Defended vs Undefended AKS Clusters"
         console.log(statusResult);
         this.barChartData[0].data = [statusResult.length]
         this.barChartData[0].label =  'Unsuccessful Deployements';
+        this.barChartData[0].backgroundColor = "red"
         this.chart.chart.update();
         this.myGrid.updatebounddata();
       });
@@ -113,6 +119,7 @@ title = "Defended vs Undefended AKS Clusters"
         this.barChartData[1] = {};
         this.barChartData[1].data = [statusResult2.length]
         this.barChartData[1].label =  'Successful Deployements';
+        this.barChartData[1].backgroundColor = "green"
         //this.barChartData.push({data: [statusResult2], label: 'Successful Deployements'});
         console.log(statusResult2.length);
         this.chart.chart.update();
