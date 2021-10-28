@@ -5,14 +5,14 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
+//import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { BaseChartDirective, Label } from 'ng2-charts';
+import { ChartOptions, ChartType } from 'chart.js';
 
-import{ jqxChartComponent } from 'jqwidgets-ng/jqxchart';
+import { ChartDataSets } from "chart.js";
 //import { CloudStatus, SeriesDatapoints } from "../cloud-status";
 import { CloudRetrievalService } from "../cloud-retrieval.service";
 import { jqxGridComponent } from "jqwidgets-ng/jqxgrid";
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-//import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label } from 'ng2-charts';
 
 @Component({
   selector: "app-grid-jq",
@@ -25,7 +25,7 @@ import { Label } from 'ng2-charts';
 export class GridJqComponent implements AfterViewInit, OnInit {
   @ViewChild("grid") myGrid!: jqxGridComponent;
   @ViewChild("grid2") myGrid2!: jqxGridComponent;
-  @ViewChild("barChart") myBar!: ChartDataSets;
+  @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 description = "Column chart displaying undefended AKS clusters vs. defended clusters"
 title = "Defended vs Undefended AKS Clusters"
   source = {
@@ -64,18 +64,30 @@ title = "Defended vs Undefended AKS Clusters"
 
   public barChartOptions: ChartOptions = {
     responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { xAxes: [{}], yAxes: [{ticks: {
+      stepSize : 10,
+      suggestedMax : 100,
+      suggestedMin: 0
+    }}] },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
   };
-  public barChartLabels: Label[] = ['AKS Cluster Status'];
+  public subtitle1 = "Failed AKS Daemonset Deployments"
+  public subtitle2 = "Successful AKS Daemonset Deployments"
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
-
-  public barChartData: ChartDataSets[] = [
-   
-  ];
+  public barChartLabels: Label[] = ['AKS Cluster Status'];
+  public barChartData: ChartDataSets[] = [];
   constructor(private cloudRetrievalService: CloudRetrievalService) {}
   ngOnInit() {
-    
+    this.getNonDefendedStatus();
+    this.getDefendedStatus();
   }
   getNonDefendedStatus(): void {
     
@@ -85,10 +97,10 @@ title = "Defended vs Undefended AKS Clusters"
         this.source.localdata = statusResult;
         
         console.log(statusResult);
-        this.barChartData.push({data: [statusResult.length], label: 'Failed Deployments'});
+        this.barChartData[0].data = [statusResult.length]
+        this.barChartData[0].label =  'Unsuccessful Deployements';
+        this.chart.chart.update();
         this.myGrid.updatebounddata();
-        this.myBar.data?.push(statusResult.length)
-        this.myBar.label = "Failed Deployments"
       });
       
   }
@@ -98,22 +110,20 @@ title = "Defended vs Undefended AKS Clusters"
       .getAKSDefendedStatus()
       .subscribe((statusResult2: any) => {
         this.source2.localdata = statusResult2;
-        this.barChartData.push({data: [statusResult2.length], label: 'Successful Deployements'});
+        this.barChartData[1] = {};
+        this.barChartData[1].data = [statusResult2.length]
+        this.barChartData[1].label =  'Successful Deployements';
+        //this.barChartData.push({data: [statusResult2], label: 'Successful Deployements'});
         console.log(statusResult2.length);
+        this.chart.chart.update();
         this.myGrid2.updatebounddata();
-        this.myBar.data?.push(statusResult2.length)
-        this.myBar.label = "Successful Deployments"
       });
   }
 
   
   ngAfterViewInit(): void {
     this.basicOptions = '&#123';
-    this.barChartData = [];
     this.myGrid.showloadelement();
-    this.myGrid2.showloadelement();
-    this.getNonDefendedStatus();
-    this.getDefendedStatus();
-   
+    this.myGrid2.showloadelement();   
   }
 }
