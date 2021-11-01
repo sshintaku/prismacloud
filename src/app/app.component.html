@@ -1,5 +1,15 @@
 <h1 style="color: cadetblue;">{{title}}</h1>
-<app-grid-jq></app-grid-jq>
+<jqxTabs #tabsReference
+         [width]='"100%"' [height]='1000' [position]='"top"'
+         [animationType]='"none"' [selectionTracker]='false'>
+  <ul>
+    <li style="margin-left: 30px;">AKS Cluster Status</li>
+  </ul>
+  <div>
+    <app-grid-jq></app-grid-jq>
+  </div>
+</jqxTabs>
+
 <app-messages></app-messages>
 
 
