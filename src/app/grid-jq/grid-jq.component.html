@@ -2,20 +2,20 @@
 
 
 
-  <div style="width: 2000px; height: 1000px; background: rgb(242, 247, 245);">
+  <div style="width: 1800px; height: 1000px; background: rgb(242, 247, 245);">
     <as-split direction="horizontal">
-      <as-split-area [size]="200">
+      <as-split-area [size]="100">
         <h2 style="color: rgb(216, 57, 29);">{{subtitle1}}</h2>
-<jqxGrid #grid [width]="1000" [enableanimations]="true" [rowsheight] = 50 [altrows]="true" [source]="dataAdapter" [columns]="columns"
+<jqxGrid #grid [width]="900" [enableanimations]="true" [rowsheight] = 50 [altrows]="true" [source]="dataAdapter" [columns]="columns"
          [columnsresize]="true" [sortable]="true" [autoshowloadelement]="true" >
 </jqxGrid>
 <h2 style="color: rgb(216, 57, 29);">{{subtitle2}}</h2>
-<jqxGrid #grid2 [width]="1000" [enableanimations]="true" [rowsheight]= 50 [altrows]="true" [source]="dataAdapter2" [columns]="columns"
+<jqxGrid #grid2 [width]="900" [enableanimations]="true" [rowsheight]= 50 [altrows]="true" [source]="dataAdapter2" [columns]="columns"
          [columnsresize]="true" [sortable]="true" [autoshowloadelement]="true" >
 </jqxGrid>
 
       </as-split-area>
-      <as-split-area [size]="400">
+      <as-split-area [size]="700">
         <div style="display: block;">
           <canvas baseChart #barChart
             [datasets]="barChartData"
